@@ -41,6 +41,7 @@ const Index = () => {
               <div>     
               {showCurrent ? <div>{data[currentIdx]}</div> : null}
               </div>
+              <footer>Chadi Abdelghani-Idrissi</footer>
         </div>
      );
 }
