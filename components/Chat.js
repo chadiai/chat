@@ -71,7 +71,7 @@ const Chat = () => {
     </div>
     <div class="chatbox">
       <div class="input-msg">
-        <input type="text" id="send-input" placeholder="type something"/>
+        <textarea type="text" id="send-input" placeholder="type something"/>
       </div>
     </div>
   </div>
