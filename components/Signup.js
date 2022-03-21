@@ -20,10 +20,6 @@ const Signup = () => {
         if (password === confirmPassword) {
             const auth = await getAuth();
             await createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                const user = userCredential.user;
-                window.location.href = "/";
-                })
                 .catch((error) => {
                     console.log(error.code)
                     switch (error.code) {
