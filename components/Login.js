@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "../styles/Login.module.css"
 import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import firebaseClient from "../firebase/firebaseClient";
@@ -20,11 +19,6 @@ function Login() {
         e.preventDefault();
         const auth = await getAuth();
         await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            window.location.href = "/chat";
-        })
         .catch((error) => {console.log(error.code)
             switch (error.code) {
                 case "auth/invalid-email":
@@ -48,7 +42,7 @@ function Login() {
     return ( 
         <div>                        
             <ToastContainer />
-            <form onSubmit={userLogin} className={styles.box}>      
+            <form onSubmit={userLogin} className="box">      
                 <h1>Login</h1>
                 <label for="email">Email</label>
                 <input
@@ -68,7 +62,7 @@ function Login() {
                     id="password"
                     placeholder="Password"
                 />
-                <button className={styles.button} type="submit">Login</button>
+                <button type="submit">Login</button>
             </form>
         </div>
      );

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "../styles/Login.module.css"
 import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import firebaseClient from "../firebase/firebaseClient";
@@ -56,7 +55,7 @@ const Signup = () => {
     return ( 
         <div>
             <ToastContainer />
-            <form onSubmit={register} className={styles.box}>
+            <form onSubmit={register} className="box">
                 <h1>Sign in</h1>
                 <label for="email">Email</label>
                 <input
@@ -85,7 +84,7 @@ const Signup = () => {
                 value={confirmPassword}
                 id="confirmPassword"
                 />
-                <button className={styles.button} type="submit"> Register</button>
+                <button type="submit"> Register</button>
             </form>
         </div>
      );

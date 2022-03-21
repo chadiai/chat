@@ -1,28 +1,24 @@
 import { toast } from "react-toastify";
 import { getAuth, signOut } from "firebase/auth";
-import { useRouter } from "next/router";
 
 
 const Chat = () => {
     const auth = getAuth();
-    const router = useRouter();
 
     const logout = async () => {
         signOut(auth)
-        .then(() => {
-            router.push("/");
-        })
         .catch((error) => {
             toast.error(error.message);
         });
     };
-    //send user input
+
     function send() {
       var usermsg = document.getElementById("send-input").value;
       var senddiv = document.querySelector(".user-input");
       senddiv.style.display = "block";
       senddiv.innerHTML = usermsg; 
     }
+    
 
     return (
     <> 
@@ -69,9 +65,10 @@ const Chat = () => {
             </div>
         </div>
     </div>
-    <div class="chatbox">
-      <div class="input-msg">
-        <textarea type="text" id="send-input" placeholder="type something"/>
+    <div className="chatbox">
+        <div className="user-input"></div>
+      <div className="input-msg">
+        <textarea type="text" id="send-input" placeholder="type something" />
       </div>
     </div>
   </div>
