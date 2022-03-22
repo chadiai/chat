@@ -16,7 +16,7 @@ const Chat = () => {
       var usermsg = document.getElementById("send-input").value;
       var senddiv = document.querySelector(".user-input");
       senddiv.style.display = "block";
-      senddiv.innerHTML = usermsg; 
+      senddiv.textContent = usermsg; 
     }
     
 
