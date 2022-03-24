@@ -1,0 +1,60 @@
+.welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;   
+    font-weight: bold;
+    font-size: 5rem;
+}
+
+.box {
+    margin: 21vh auto;
+    max-width: 400px;
+        
+}
+.box h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 5px;
+    padding-bottom: 25px;
+}
+
+.box label {
+    margin: 5px;
+}
+
+.box input{    
+    outline: none;
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    color: #d1d0c5;
+    background-color: #2d2f31;    
+    border: none;
+    border-radius: 5px;
+}
+
+
+.box p {
+    text-align: center;
+}
+
+.submit {    
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    color: #d1d0c5;
+    background-color: #2d2f31;
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.25s;
+}
+
+.submit:hover {
+    color: #000;
+    background-color: #be9c1a;
+    cursor: pointer;
+}

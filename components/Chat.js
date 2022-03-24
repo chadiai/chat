@@ -23,54 +23,56 @@ const Chat = () => {
     return (
     <> 
     <div className="chat">        
-    <div className="navbar"><a onClick={logout}>Sign out</a></div>
-    <div className="preview" >
-        <form id="searchform"> 
-        <input type="search" id="search" name="search" placeholder="Search..."/>
-        </form>
-        <div >
-            <div id="friend-username">
-                <span id="name">user1</span>
-                <span id="lastmsg">last message</span>
+        <div className="navbar"><a onClick={logout}>Sign out</a></div>
+        <div className="preview" >
+            <form id="searchform"> 
+            <input type="search" id="search" name="search" placeholder="Search..."/>
+            </form>
+            <div >
+                <div id="friend-username">
+                    <span id="name">user1</span>
+                    <span id="lastmsg">last message</span>
+                </div>
             </div>
-        </div>
-        <div>
-            <div id="friend-username">
-                <span id="name">user2</span>
-                <span id="lastmsg">last message</span>
-            </div>
-        </div>
-        <div>
-            <div id="friend-username">
-                <span id="name">user3</span>
-                <span id="lastmsg">last message</span>
-            </div>
-        </div>
-        <div>
-            <div id="friend-username">
-                <span id="name">user4</span>
-                <span id="lastmsg">last message</span>
-            </div>
-        </div>
-        <div>
-            <div id="friend-username">
-                <span id="name">user5</span>
-                <span id="lastmsg">last message</span>
-            </div>
-        </div>
             <div>
-            <div id="friend-username">
-                <span id="name">user6</span>
-                <span id="lastmsg">last message</span>
+                <div id="friend-username">
+                    <span id="name">user2</span>
+                    <span id="lastmsg">last message</span>
+                </div>
+            </div>
+            <div>
+                <div id="friend-username">
+                    <span id="name">user3</span>
+                    <span id="lastmsg">last message</span>
+                </div>
+            </div>
+            <div>
+                <div id="friend-username">
+                    <span id="name">user4</span>
+                    <span id="lastmsg">last message</span>
+                </div>
+            </div>
+            <div>
+                <div id="friend-username">
+                    <span id="name">user5</span>
+                    <span id="lastmsg">last message</span>
+                </div>
+            </div>
+                <div>
+                <div id="friend-username">
+                    <span id="name">user6</span>
+                    <span id="lastmsg">last message</span>
+                </div>
             </div>
         </div>
-    </div>
-    <div className="chatbox">
-        <div className="user-input"></div>
-      <div className="input-msg">
-        <textarea type="text" id="send-input" placeholder="type something" />
-      </div>
-    </div>
+        <div className="chatbox">
+            <div className="user-input">
+                    messages
+            </div>
+            <div className="input-msg">
+                <textarea type="text" id="send-input" placeholder="type something" />
+            </div>
+        </div>
   </div>
     </> );
 }

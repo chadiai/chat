@@ -8,9 +8,15 @@ import { useAuth } from '../auth';
 
 const Index = () => {
     
-    const [data] = useState([<Login />, <Signup />,<div className='start'>Login to start chatting!</div>]);
+    const { user } = useAuth();
+    
     const [currentIdx, setCurrentIdx] = useState(0);
     const [showCurrent, setShowCurrent] = useState(false);
+    const [data] = useState([
+        <Login />,
+        <Signup />,
+        <div className='welcome'>Login to start chatting!</div>
+    ]);
 
     const setCurrent = index => {
         setCurrentIdx(index);
@@ -20,19 +26,14 @@ const Index = () => {
         };
     }
 
-    const { user } = useAuth();
-
     useEffect(() => {
         if (user == false || user == null) {
             setCurrent(2)
         }
-    }, [user]);
-        
-
-
+    }, [user]);    
 
     return (
-        <div className='root'>
+        <div>
               <ToastContainer />
               <div className='navbar'>
                   <a onClick={() => setCurrent(0)}>Login</a> 

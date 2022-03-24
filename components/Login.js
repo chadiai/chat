@@ -19,7 +19,7 @@ function Login() {
         e.preventDefault();
         const auth = await getAuth();
         await signInWithEmailAndPassword(auth, email, password)
-        .catch((error) => {console.log(error.code)
+        .catch((error) => {
             switch (error.code) {
                 case "auth/invalid-email":
                   errorMessage = "Your email address appears to be malformed.";
@@ -40,9 +40,9 @@ function Login() {
         });
     };
     return ( 
-        <div>                        
+        <div className="box">                        
             <ToastContainer />
-            <form onSubmit={userLogin} className="box">      
+            <form onSubmit={userLogin}>      
                 <h1>Login</h1>
                 <label for="email">Email</label>
                 <input
@@ -62,7 +62,7 @@ function Login() {
                     id="password"
                     placeholder="Password"
                 />
-                <button type="submit">Login</button>
+                <button type="submit" className="submit">Sign in</button>
             </form>
         </div>
      );

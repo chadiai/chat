@@ -21,7 +21,6 @@ const Signup = () => {
             const auth = await getAuth();
             await createUserWithEmailAndPassword(auth, email, password)
                 .catch((error) => {
-                    console.log(error.code)
                     switch (error.code) {
                         case "auth/invalid-email":
                           errorMessage = "Your email address appears to be malformed.";
@@ -49,9 +48,9 @@ const Signup = () => {
       };
 
     return ( 
-        <div>
+        <div className="box">
             <ToastContainer />
-            <form onSubmit={register} className="box">
+            <form onSubmit={register} >
                 <h1>Sign in</h1>
                 <label for="email">Email</label>
                 <input
@@ -80,7 +79,7 @@ const Signup = () => {
                 value={confirmPassword}
                 id="confirmPassword"
                 />
-                <button type="submit"> Register</button>
+                <button type="submit" className="submit"> Register</button>
             </form>
         </div>
      );
