@@ -44,7 +44,7 @@ function Login() {
             <ToastContainer />
             <form onSubmit={userLogin}>      
                 <h1>Login</h1>
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input
                     type="email"
                     name="email"
@@ -53,7 +53,7 @@ function Login() {
                     id="email"
                     placeholder="Email"
                 />
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input
                     type="password"
                     name="password"

@@ -1,6 +1,8 @@
 import '../styles/globals.css';
 import { AuthProvider } from "../auth";
 
+import { ToastContainer,toast } from "react-toastify";
+
 
 
 

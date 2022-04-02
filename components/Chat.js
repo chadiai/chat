@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "../auth";
 import { db } from "../firebase/firebaseDatabase";
 import { collection, addDoc } from "@firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
-import { getDisplayName } from "next/dist/shared/lib/utils";
 
 
 const SideBar = () => {
@@ -21,15 +19,29 @@ const SideBar = () => {
     const chatExists = email => chats?.find(chat => {chat.emails.includes(user.email) && chat.emails.includes(email)})
 
     const getDisplayName = (email) => {
-        return users?.filter(user => user.email.includes(email))[0].name;
-    
-    } 
+        try {
+            let name = users?.filter(user => user.email.includes(email))[0].name
+            return name
+        }
+        catch(err) {
+            // To do: popup maken
+            console.log("user does not exist")
+        }
+        
+    }
+        
+        
+        
+     
 
     const userlookup = async (e) => {
         e.preventDefault();
         if (!chatExists(userLookup) && (userLookup != user.email)){
             const displayName = getDisplayName(userLookup);
-            await addDoc(collection(db,"chats"),{emails: [user.email, userLookup],users: [user.displayName, displayName]})
+            if(displayName){
+                await addDoc(collection(db,"chats"),{emails: [user.email, userLookup],users: [user.displayName, displayName]})
+            }
+            
         }
         
     }
@@ -77,6 +89,7 @@ const SideBar = () => {
 
 const Chatbox = () => {
     return (
+        
         <div className="chatbox">
             <div className="user-input">
                     messages

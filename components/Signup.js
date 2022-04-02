@@ -68,7 +68,7 @@ const Signup = () => {
             <ToastContainer />
             <form onSubmit={register} >
                 <h1>Sign in</h1>
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input
                 type="email"
                 name="email"
@@ -77,7 +77,7 @@ const Signup = () => {
                 value={email}
                 id="emailAddress"
                 />
-                <label for="username">Username</label>
+                <label htmlFor="username">Username</label>
                 <input
                 type="username"
                 name="username"
@@ -86,7 +86,7 @@ const Signup = () => {
                 value={username}
                 id="username"
                 />
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input
                 type="password"
                 name="password"
@@ -95,7 +95,7 @@ const Signup = () => {
                 value={password}
                 id="password"
                 />
-                <label for="confirmPassword">Confirm Password</label>
+                <label htmlFor="confirmPassword">Confirm Password</label>
                 <input
                 type="password"
                 name="confirmPassword"
