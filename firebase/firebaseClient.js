@@ -1,6 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
 
-
 const FIREBASE_CONFIG = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,

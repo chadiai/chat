@@ -5,6 +5,7 @@ import { useAuth } from "../auth";
 import { db } from "../firebase/firebaseDatabase";
 import { collection, addDoc } from "@firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
+import { getDisplayName } from "next/dist/shared/lib/utils";
 
 
 const SideBar = () => {
@@ -17,13 +18,18 @@ const SideBar = () => {
     const [ snapshotUsers ] = useCollection(collection(db, "users"));
     const users = snapshotUsers?.docs.map((doc => ({id: doc.id, ...doc.data()})));
 
-    const chatExists = email => chats?.fill(chat => {chat.emails.includes(user.email) && chat.emails.includes(email)})
+    const chatExists = email => chats?.find(chat => {chat.emails.includes(user.email) && chat.emails.includes(email)})
 
-    const userlookup = async () => {
-        const input = prompt("Enter email");
+    const getDisplayName = (email) => {
+        return users?.filter(user => user.email.includes(email))[0].name;
+    
+    } 
 
-        if (!chatExists(input) && (input != user.email)){
-            await addDoc(collection(db,"chats"),{emails: [user.email, input],users: [user.displayName, input]})
+    const userlookup = async (e) => {
+        e.preventDefault();
+        if (!chatExists(userLookup) && (userLookup != user.email)){
+            const displayName = getDisplayName(userLookup);
+            await addDoc(collection(db,"chats"),{emails: [user.email, userLookup],users: [user.displayName, displayName]})
         }
         
     }
@@ -46,7 +52,7 @@ const SideBar = () => {
     const UserList = () => {
         return (
         <>
-            {chats?.filter(chat => chat.id.includes(user.uid))
+            {chats?.filter(chat => chat.emails.includes(user.email))
             .map(
                 chat => 
                 <UserPreview key={chat.users} name={getUser(chat.users,user)} /> )}
@@ -61,7 +67,7 @@ const SideBar = () => {
             <form onSubmit={userlookup}>
                 <input id="userlookup" onChange={(e) => setUserLookup(e.target.value)}
                         value={userLookup}></input>
-                <button id="newchat" type="submit" > new chat</button>
+                <button id="newchat" type="submit" > add user</button>
             </form>
             <UserList/>
         </div>    

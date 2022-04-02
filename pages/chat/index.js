@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import { useAuth } from "../auth";
-import Chat from '../components/Chat';
+import { useAuth } from "../../auth";
+import Chat from '../../components/Chat';
 import { useRouter } from "next/router";
 
 

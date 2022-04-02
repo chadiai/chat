@@ -7,6 +7,9 @@ import {
     createUserWithEmailAndPassword, updateProfile
   } from "firebase/auth";
 
+import { db } from "../firebase/firebaseDatabase";
+import { collection, addDoc } from "@firebase/firestore"
+import { useCollection } from "react-firebase-hooks/firestore"
 
 const Signup = () => {
     firebaseClient();
@@ -15,6 +18,9 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [ snapshot] = useCollection(collection(db, "users"));
+    const users = snapshot?.docs.map((doc => ({id: doc.id, ...doc.data()})));
 
     const register = async (e) => {
         e.preventDefault();
@@ -25,7 +31,7 @@ const Signup = () => {
               updateProfile(auth.currentUser, {
                 displayName: username
               }).then(() => {
-                // Profile updated!
+                addDoc(collection(db,"users"),{email: email,name: username})
               }).catch((error) => {
                 toast.error("Could not create account with that username");
               });
