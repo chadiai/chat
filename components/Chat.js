@@ -1,6 +1,55 @@
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { getAuth, signOut } from "firebase/auth";
+import { useAuth } from "../auth";
 
+
+const SideBar = () => {
+    const [userLookup, setUserLookup] = useState("");
+    
+    const { user } = useAuth();
+    
+    const userlookup = async (e) => {
+        e.preventDefault();
+        console.log("pressed")
+
+    }
+
+    return (
+        <div className="preview" >
+            <UserPreview name={user.displayName}/>
+            
+            <form onSubmit={userlookup}>
+                <input id="userlookup" onChange={(e) => setUserLookup(e.target.value)}
+                        value={userLookup}></input>
+                <button id="newchat" type="submit" > new chat</button>
+            </form>
+            <UserPreview name="user"/>
+        </div>    
+    )
+}
+
+const UserPreview = props => {
+    return (
+        <div id="friend-username">
+            <i class="fa-solid fa-user"></i>
+            {props.name}
+        </div>
+    )
+}
+
+const Chatbox = () => {
+    return (
+        <div className="chatbox">
+            <div className="user-input">
+                    messages
+            </div>
+            <div className="input-msg">
+                <textarea type="text" id="send-input" placeholder="type something" />
+            </div>
+        </div>
+    )
+}
 
 const Chat = () => {
     const auth = getAuth();
@@ -12,67 +61,13 @@ const Chat = () => {
         });
     };
 
-    function send() {
-      var usermsg = document.getElementById("send-input").value;
-      var senddiv = document.querySelector(".user-input");
-      senddiv.style.display = "block";
-      senddiv.textContent = usermsg; 
-    }
-    
-
     return (
     <> 
     <div className="chat">        
         <div className="navbar"><a onClick={logout}>Sign out</a></div>
-        <div className="preview" >
-            <form id="searchform"> 
-            <input type="search" id="search" name="search" placeholder="Search..."/>
-            </form>
-            <div >
-                <div id="friend-username">
-                    <span id="name">user1</span>
-                    <span id="lastmsg">last message</span>
-                </div>
-            </div>
-            <div>
-                <div id="friend-username">
-                    <span id="name">user2</span>
-                    <span id="lastmsg">last message</span>
-                </div>
-            </div>
-            <div>
-                <div id="friend-username">
-                    <span id="name">user3</span>
-                    <span id="lastmsg">last message</span>
-                </div>
-            </div>
-            <div>
-                <div id="friend-username">
-                    <span id="name">user4</span>
-                    <span id="lastmsg">last message</span>
-                </div>
-            </div>
-            <div>
-                <div id="friend-username">
-                    <span id="name">user5</span>
-                    <span id="lastmsg">last message</span>
-                </div>
-            </div>
-                <div>
-                <div id="friend-username">
-                    <span id="name">user6</span>
-                    <span id="lastmsg">last message</span>
-                </div>
-            </div>
-        </div>
-        <div className="chatbox">
-            <div className="user-input">
-                    messages
-            </div>
-            <div className="input-msg">
-                <textarea type="text" id="send-input" placeholder="type something" />
-            </div>
-        </div>
+        <SideBar/>
+        <Chatbox/>
+        
   </div>
     </> );
 }

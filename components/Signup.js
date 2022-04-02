@@ -4,13 +4,14 @@ import "react-toastify/dist/ReactToastify.css";
 import firebaseClient from "../firebase/firebaseClient";
 import {
     getAuth,
-    createUserWithEmailAndPassword,
+    createUserWithEmailAndPassword, updateProfile
   } from "firebase/auth";
 
 
 const Signup = () => {
     firebaseClient();
-    var errorMessage = "";
+    let errorMessage = "";
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,7 +21,16 @@ const Signup = () => {
         if (password === confirmPassword) {
             const auth = await getAuth();
             await createUserWithEmailAndPassword(auth, email, password)
-                .catch((error) => {
+            .then(function () {
+              updateProfile(auth.currentUser, {
+                displayName: username
+              }).then(() => {
+                // Profile updated!
+              }).catch((error) => {
+                toast.error("Could not create account with that username");
+              });
+            })
+            .catch((error) => {
                     switch (error.code) {
                         case "auth/invalid-email":
                           errorMessage = "Your email address appears to be malformed.";
@@ -60,6 +70,15 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 id="emailAddress"
+                />
+                <label for="username">Username</label>
+                <input
+                type="username"
+                name="username"
+                placeholder="Username"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                id="username"
                 />
                 <label for="password">Password</label>
                 <input

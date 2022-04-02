@@ -11,7 +11,7 @@ import {
 function Login() {
     firebaseClient();
     
-    var errorMessage = "";
+    let errorMessage = "";
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 

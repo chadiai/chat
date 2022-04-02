@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from "firebase/app";
 
+
 const FIREBASE_CONFIG = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -9,9 +10,8 @@ const FIREBASE_CONFIG = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-
 export default function firebaseClient() {
   if (!getApps().length) {
-    initializeApp(FIREBASE_CONFIG);
+    return initializeApp(FIREBASE_CONFIG);
   }
 }
