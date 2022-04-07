@@ -9,6 +9,7 @@ import { useCollection } from "react-firebase-hooks/firestore"
 const SideBar = () => {
     const [userLookup, setUserLookup] = useState("");
     
+    const auth = getAuth();
     const { user } = useAuth();
     const [ snapshotChats ] = useCollection(collection(db, "chats"));
     const chats = snapshotChats?.docs.map((doc => ({id: doc.id, ...doc.data()})));
@@ -29,10 +30,6 @@ const SideBar = () => {
         }
         
     }
-        
-        
-        
-     
 
     const userlookup = async (e) => {
         e.preventDefault();
@@ -50,8 +47,7 @@ const SideBar = () => {
     const UserPreview = props => {
         return (
             <div id="friend-username">
-                <i className="fa-solid fa-user"></i>
-                {props.name}
+                <span><i className="fa-solid fa-user"></i> {props.name}</span>  
             </div>
         )
     }
@@ -71,11 +67,22 @@ const SideBar = () => {
         </>
         )
     }
-    
+
+    const logout = async () => {
+        signOut(auth)
+        .catch((error) => {
+            toast.error(error.message);
+        });
+    };
     
     return (
         <div className="preview" >
-            <UserPreview name={user.displayName}/>            
+            <div className="topbar">
+                <div>
+                    <i className="fa-solid fa-user"></i> {user.displayName}
+                </div>
+                <a className="signout" onClick={logout}><i className="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
             <form onSubmit={userlookup}>
                 <input id="userlookup" onChange={(e) => setUserLookup(e.target.value)}
                         value={userLookup}></input>
@@ -88,12 +95,18 @@ const SideBar = () => {
 
 
 const Chatbox = () => {
+
     return (
         
         <div className="chatbox">
-            <div className="user-input">
-                    messages
-            </div>
+                
+                    
+                    <p className="chat-right">message</p>
+                    <p className="chat-left">message</p>
+                    <p className="chat-right">message</p>
+                    <p className="chat-right">message</p>
+                    <p className="chat-left" >message</p>
+                    <p className="chat-left" >message</p>
             <div className="input-msg">
                 <textarea type="text" id="send-input" placeholder="type something" />
             </div>
@@ -102,23 +115,12 @@ const Chatbox = () => {
 }
 
 const Chat = () => {
-    const auth = getAuth();
-
-    const logout = async () => {
-        signOut(auth)
-        .catch((error) => {
-            toast.error(error.message);
-        });
-    };
+    
 
     return (
-    <> 
-    <div className="chat">        
-        <div className="navbar"><a onClick={logout}>Sign out</a></div>
+    <>   
         <SideBar/>
         <Chatbox/>
-        
-  </div>
     </> );
 }
  

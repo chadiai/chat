@@ -1,29 +1,44 @@
-.chat {
-  font-size: 14px;
-  line-height: 18px;
-  padding:0;
-  margin:0;
-  overflow-x: hidden;
-}
 .chatbox {
   position: absolute;
   right: 0;
-  bottom: 0;
+  top: 0;
+  display: flex;
   flex-direction: column;
   overflow-y: scroll;
   overflow-x: none;
   height: 100vh;
-  width: 85vw;
+  width: 90vw;
   z-index: -1;
 }
 
+.chat-left {
+  padding: 0.5rem;
+  margin: 0.25rem;
+  background-color: #be9c1a;
+  border-radius: 0px 5px 5px 5px;
+  min-width: 100px;
+  width: fit-content;
+}
+
+.chat-right {
+  padding: 0.5rem;
+  margin: 0.25rem;
+  background-color: #1a8dbe;
+  border-radius: 5px 5px 0px 5px;
+  min-width: 100px;
+  width: fit-content;
+  align-self: flex-end;
+}
+
+
 .preview {
-  overflow-y: scroll;
+  font-size: 0.75rem;
   position: absolute;
+  overflow-y: scroll;
   left: 0;
   bottom: 0;
   height: 100vh;
-  width: 15vw;
+  width: 10vw;
   border-right: 3px solid #2d2f31;
 }
 
@@ -38,11 +53,26 @@ https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
   scrollbar-width: none;
 }
 
+.topbar {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;  
+  justify-content: space-between;
+  background-color: #2d2f31;
+}
+
+.signout {
+  max-width: fit-content;
+  margin: 5px;
+}
+
 #userlookup {
   width: 100%;
 }
 
 #friend-username {
+  display: flex;
+  flex-direction: column;
   padding: 10px 5px;
   transition: 0.25s;
   font-weight: 500;
@@ -93,4 +123,10 @@ textarea {
   border-radius: 50%;
   font-size: 1rem;
   padding: 5px;
+}
+
+@media screen and (max-width:500px) {
+  .topbar {
+    flex-direction: column;
+  }
 }
