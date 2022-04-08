@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useAuth } from "../../auth";
-import Chat from '../../components/Chat';
 import { useRouter } from "next/router";
+import SideBar from '../../components/Sidebar';
 
 
 function chat() {
@@ -15,7 +15,7 @@ function chat() {
     }, [user]);
 
     return (
-        <> {!user || user == null  ? ( <></> ) : (<Chat></Chat>)} </>
+        <> {!user || user == null  ? ( <></> ) : (<SideBar></SideBar>)} </>
     )
 }
 

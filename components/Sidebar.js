@@ -79,7 +79,7 @@ const SideBar = () => {
         <div className="preview" >
             <div className="topbar">
                 <div>
-                    <i className="fa-solid fa-user"></i> {user.displayName}
+                    <i className="fa-solid fa-user"></i> {user?.displayName}
                 </div>
                 <a className="signout" onClick={logout}><i className="fa-solid fa-arrow-right-from-bracket"></i></a>
             </div>
@@ -92,36 +92,4 @@ const SideBar = () => {
         </div>    
     )
 }
-
-
-const Chatbox = () => {
-
-    return (
-        
-        <div className="chatbox">
-                
-                    
-                    <p className="chat-right">message</p>
-                    <p className="chat-left">message</p>
-                    <p className="chat-right">message</p>
-                    <p className="chat-right">message</p>
-                    <p className="chat-left" >message</p>
-                    <p className="chat-left" >message</p>
-            <div className="input-msg">
-                <textarea type="text" id="send-input" placeholder="type something" />
-            </div>
-        </div>
-    )
-}
-
-const Chat = () => {
-    
-
-    return (
-    <>   
-        <SideBar/>
-        <Chatbox/>
-    </> );
-}
- 
-export default Chat;
+export default SideBar;
