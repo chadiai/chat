@@ -11,7 +11,7 @@
   z-index: -1;
 }
 
-.chat-left {
+.message-left {
   padding: 0.5rem;
   margin: 0.25rem;
   background-color: #be9c1a;
@@ -20,7 +20,7 @@
   width: fit-content;
 }
 
-.chat-right {
+.message-right {
   padding: 0.5rem;
   margin: 0.25rem;
   background-color: #1a8dbe;

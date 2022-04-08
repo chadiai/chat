@@ -17,6 +17,10 @@ const SideBar = () => {
     const [ snapshotUsers ] = useCollection(collection(db, "users"));
     const users = snapshotUsers?.docs.map((doc => ({id: doc.id, ...doc.data()})));
 
+    const push = (id) => {        
+        window.location = `/chat/${id}`;
+    }
+
     const chatExists = email => chats?.find(chat => {chat.emails.includes(user.email) && chat.emails.includes(email)})
 
     const getDisplayName = (email) => {
@@ -33,7 +37,7 @@ const SideBar = () => {
 
     const userlookup = async (e) => {
         e.preventDefault();
-        if (!chatExists(userLookup) && (userLookup != user.email)){
+        if (!chatExists(userLookup) && (userLookup != user.email) && userLookup != ""){
             const displayName = getDisplayName(userLookup);
             if(displayName){
                 await addDoc(collection(db,"chats"),{emails: [user.email, userLookup],users: [user.displayName, displayName]})
@@ -47,7 +51,7 @@ const SideBar = () => {
     const UserPreview = props => {
         return (
             <div id="friend-username">
-                <span><i className="fa-solid fa-user"></i> {props.name}</span>  
+                <span onClick={() => push(props.id)} ><i className="fa-solid fa-user"></i> {props.name}</span>  
             </div>
         )
     }
@@ -63,7 +67,7 @@ const SideBar = () => {
             {chats?.filter(chat => chat.emails.includes(user.email))
             .map(
                 chat => 
-                <UserPreview key={chat.users} name={getUser(chat.users,user)} /> )}
+                <UserPreview key={chat.users} name={getUser(chat.users,user)} url={chat.id} id={chat.id}/> )}
         </>
         )
     }
