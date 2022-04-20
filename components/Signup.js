@@ -19,12 +19,18 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [ snapshot] = useCollection(collection(db, "users"));
-    const users = snapshot?.docs.map((doc => ({id: doc.id, ...doc.data()})));
+    const [ snapshotUsers ] = useCollection(collection(db, "users"));
+    const users = snapshotUsers?.docs.map((doc => ({id: doc.id, ...doc.data()})));
+
+
 
     const register = async (e) => {
         e.preventDefault();
-        if (password === confirmPassword) {
+        const userExists = username => users?.find(user => {
+          return user.name==username
+        })
+        if (password === confirmPassword )  {
+          if (userExists(username)) return toast.error("username already exists")
             const auth = await getAuth();
             await createUserWithEmailAndPassword(auth, email, password)
             .then(function () {
@@ -62,6 +68,7 @@ const Signup = () => {
             toast.error("Your passwords do not match");
             }
       };
+
 
     return ( 
         <div className="box">

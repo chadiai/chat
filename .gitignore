@@ -33,10 +33,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-
-#database
-/nodejsProject
-
-#secret
-secret.json

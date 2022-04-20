@@ -4,7 +4,7 @@ import { useAuth } from "../auth";
 import { db } from "../firebase/firebaseDatabase";
 import { collection, addDoc } from "@firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
-
+import { ToastContainer,toast } from "react-toastify";
 
 const SideBar = () => {
     const [userLookup, setUserLookup] = useState("");
@@ -21,7 +21,8 @@ const SideBar = () => {
         window.location = `/chat/${id}`;
     }
 
-    const chatExists = email => chats?.find(chat => {chat.emails.includes(user.email) && chat.emails.includes(email)})
+    const chatExists = email => chats?.find(chat => (chat.emails.includes(user.email) && chat.emails.includes(email)))
+
 
     const getDisplayName = (email) => {
         try {
@@ -29,14 +30,14 @@ const SideBar = () => {
             return name
         }
         catch(err) {
-            // To do: popup maken
-            console.log("user does not exist")
+            toast.error("user does not exist")
         }
         
     }
 
     const userlookup = async (e) => {
         e.preventDefault();
+        console.log(chatExists(userLookup))
         if (!chatExists(userLookup) && (userLookup != user.email) && userLookup != ""){
             const displayName = getDisplayName(userLookup);
             if(displayName){
@@ -81,6 +82,7 @@ const SideBar = () => {
     
     return (
         <div className="preview" >
+            <ToastContainer />
             <div className="topbar">
                 <div>
                     <i className="fa-solid fa-user"></i> {user?.displayName}
