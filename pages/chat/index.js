@@ -15,7 +15,12 @@ function chat() {
     }, [user]);
 
     return (
-        <> {!user || user == null  ? ( <></> ) : (<SideBar></SideBar>)} </>
+        <> {!user || user == null  ? ( <></> ) : (<><SideBar></SideBar>
+                                                    <div className='chatbox'>
+                                                        <h1>Add/select a user to start chatting</h1>
+
+                                                    </div>
+                                                    </>)} </>
     )
 }
 

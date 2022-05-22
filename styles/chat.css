@@ -6,30 +6,52 @@
   flex-direction: column;
   overflow-y: scroll;
   overflow-x: none;
-  height: 100vh;
+  height: 95vh;
   width: 90vw;
   z-index: -1;
 }
 
 .message-left {
+  text-align: left;
   padding: 0.5rem;
   margin: 0.25rem;
   background-color: #be9c1a;
   border-radius: 0px 5px 5px 5px;
   min-width: 100px;
-  width: fit-content;
 }
 
 .message-right {
+  text-align: right;
   padding: 0.5rem;
   margin: 0.25rem;
   background-color: #1a8dbe;
   border-radius: 5px 5px 0px 5px;
   min-width: 100px;
-  width: fit-content;
-  align-self: flex-end;
 }
 
+.left {
+  text-align: left;
+  
+  align-self: flex-start;
+}
+
+.right {
+  text-align: right;
+  
+  align-self: flex-end;
+  
+}
+
+.timestamp-right {
+  margin-bottom: 10px;
+  text-align: right;
+  font-size: 0.5rem;
+}
+.timestamp-left {
+  text-align: left;
+  font-size: 0.5rem;
+  margin-bottom: 10px;
+}
 
 .preview {
   font-size: 0.75rem;
@@ -56,14 +78,14 @@ https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
 .topbar {
   display: flex;
   flex-direction: row;
-  padding: 10px;  
+  padding: 0px 2px 20px 2px;
   justify-content: space-between;
   background-color: #2d2f31;
 }
 
 .signout {
   max-width: fit-content;
-  margin: 5px;
+  padding-top: 20px;
 }
 
 #userlookup {
@@ -96,11 +118,13 @@ https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
   padding-top: 10px;
 }
 #send-input {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  right: 0;
   height: 30px;
   border-radius: 1px;
-  width: 100%;
+  width: 90vw;
+  height: 5vh;
 }
 
 #newchat {
@@ -111,17 +135,44 @@ https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp
   border: 1px solid #d1d0c5;
 }
 
-textarea {
-  outline: none;
-  resize: none;
-  overflow: auto;
-}
-
 .fa-user {
   background-color: #d1d0c5;
   color: #2d2f31;
   border-radius: 50%;
   font-size: 1rem;
+  padding: 5px;
+}
+
+.profilepic {
+  transform: translate(0px,10px);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.chatbox h1 {
+  margin: 5vh auto;
+}
+
+.photoupload {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 35vw;
+  height: 15vh;
+  color: black;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.close-pf {
+  position: absolute;
+  top: 0;
+  right: 0;
   padding: 5px;
 }
 

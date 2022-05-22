@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { getAuth, signOut } from "firebase/auth";
-import { useAuth } from "../auth";
+import { useAuth , upload } from "../auth";
 import { db } from "../firebase/firebaseDatabase";
-import { collection, addDoc } from "@firebase/firestore"
+import { collection, addDoc,updateDoc,doc } from "@firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { ToastContainer,toast } from "react-toastify";
 
 const SideBar = () => {
     const [userLookup, setUserLookup] = useState("");
-    
+    const [photo, setPhoto] = useState(null);
+    const [profilePicture, setProfilePicture] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [photoURL, setPhotoURL] = useState("");
     const auth = getAuth();
     const { user } = useAuth();
     const [ snapshotChats ] = useCollection(collection(db, "chats"));
@@ -24,24 +27,24 @@ const SideBar = () => {
     const chatExists = email => chats?.find(chat => (chat.emails.includes(user.email) && chat.emails.includes(email)))
 
 
-    const getDisplayName = (email) => {
+    const getEmail = (name) => {
         try {
-            let name = users?.filter(user => user.email.includes(email))[0].name
-            return name
+            let email = users?.filter(user => user.name == name )[0].email
+            return email
         }
         catch(err) {
-            toast.error("user does not exist")
+            alert("User does not exist")
         }
         
     }
 
     const userlookup = async (e) => {
         e.preventDefault();
-        console.log(chatExists(userLookup))
-        if (!chatExists(userLookup) && (userLookup != user.email) && userLookup != ""){
-            const displayName = getDisplayName(userLookup);
-            if(displayName){
-                await addDoc(collection(db,"chats"),{emails: [user.email, userLookup],users: [user.displayName, displayName]})
+        if ((userLookup != user.displayName) && userLookup != ""){
+            const email = getEmail(userLookup);
+            if(email && email != user.email && !chatExists(email)){
+                await addDoc(collection(db,"chats"),{emails: [email, user.email],users: [user.displayName, userLookup]})
+
             }
             
         }
@@ -52,7 +55,7 @@ const SideBar = () => {
     const UserPreview = props => {
         return (
             <div id="friend-username">
-                <span onClick={() => push(props.id)} ><i className="fa-solid fa-user"></i> {props.name}</span>  
+                <span onClick={() => push(props.id)} >{props.photoURL != null ? (<> <a><img className="profilepic" src={props.photoURL} ></img></a></>) : ( <i className="fa-solid fa-user"></i>)} {props.name}</span>  
             </div>
         )
     }
@@ -79,23 +82,58 @@ const SideBar = () => {
             toast.error(error.message);
         });
     };
+
+    const openProfilePicture = () => {
+        setProfilePicture(true);
+    }
+    const closeProfilePicture = () => {
+        setProfilePicture(false);
+    }
+
+    function handleChange(e) {
+        if (e.target.files[0]) {
+          setPhoto(e.target.files[0])
+        }
+    }
+
+
+    async function handleClick() {
+    upload(photo, user,setLoading);
+    setProfilePicture(false)
+    }
+
+        
+    useEffect(() => {
+    if (user?.photoURL) {
+        setPhotoURL(user.photoURL);
+    }
+    }, [user])
     
     return (
+        <>
         <div className="preview" >
             <ToastContainer />
             <div className="topbar">
                 <div>
-                    <i className="fa-solid fa-user"></i> {user?.displayName}
+                {user?.photoURL != null ? (<> <a onClick={openProfilePicture}><img className="profilepic" src={user.photoURL} ></img></a></>) : ( <a onClick={openProfilePicture}><i className="fa-solid fa-user"></i></a>)}
+                     {user?.displayName}
                 </div>
                 <a className="signout" onClick={logout}><i className="fa-solid fa-arrow-right-from-bracket"></i></a>
             </div>
             <form onSubmit={userlookup}>
                 <input id="userlookup" onChange={(e) => setUserLookup(e.target.value)}
-                        value={userLookup}></input>
+                        value={userLookup} placeholder="username"></input>
                 <button id="newchat" type="submit" > add user</button>
             </form>
             <UserList/>
-        </div>    
+        </div>
+        {profilePicture ? (<div className="photoupload">
+            <input type="file" onChange={handleChange} />
+            <a onClick={closeProfilePicture} className="close-pf"><i class="fa-solid fa-xmark"></i></a>
+            <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
+        </div>) : (<></>)}
+        
+    </>   
     )
 }
 export default SideBar;
