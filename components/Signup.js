@@ -37,7 +37,7 @@ const Signup = () => {
               updateProfile(auth.currentUser, {
                 displayName: username
               }).then(() => {
-                setDoc(doc(db,"users",username),{email: email,photoURL:""})
+                setDoc(doc(db,"users",username.toLowerCase()),{email: email,photoURL:""})
               }).catch((error) => {
                 console.log(error)
                 toast.error("Could not create account with that username");

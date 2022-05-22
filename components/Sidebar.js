@@ -40,10 +40,10 @@ const SideBar = () => {
 
     const userlookup = async (e) => {
         e.preventDefault();
-        if ((userLookup != user.displayName) && userLookup != ""){
-            const email = getEmail(userLookup);
+        if ((userLookup.toLowerCase() != user.displayName.toLowerCase()) && userLookup != ""){
+            const email = getEmail(userLookup.toLowerCase());
             if(email && email != user.email && !chatExists(email)){
-                await addDoc(collection(db,"chats"),{emails: [email, user.email],users: [user.displayName, userLookup]})
+                await addDoc(collection(db,"chats"),{emails: [email, user.email],users: [user.displayName.toLowerCase(), userLookup.toLowerCase()]})
 
             }
             
@@ -61,13 +61,13 @@ const SideBar = () => {
     }
 
     const getUser = (users, currentUser) => {
-        return users?.filter(user => user!== currentUser.displayName)[0];
+        return users?.filter(user => user!== currentUser.displayName.toLowerCase())[0];
     
     }
 
     const getProfilePicture = (name) => {
         try {
-            let photoUrl = users?.filter(user => user.id == name )[0].photoURL
+            let photoUrl = users?.filter(user => user.id == name.toLowerCase() )[0].photoURL
             return photoUrl
         }
         catch(err) {
