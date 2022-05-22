@@ -13,9 +13,9 @@ const Index = () => {
     const [currentIdx, setCurrentIdx] = useState(0);
     const [showCurrent, setShowCurrent] = useState(false);
     const [data] = useState([
-        <Login />,
-        <Signup />,
-        <div className='welcome'>Login to start chatting!</div>
+        <Login key={"login"} />,
+        <Signup key={"signup"} />,
+        <div key={"welcome"} className='welcome'>Login to start chatting!</div>
     ]);
 
     const setCurrent = index => {
