@@ -3,6 +3,8 @@ import firebaseClient from "./firebase/firebaseClient";
 import { getAuth, onIdTokenChanged,updateProfile } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Cookies from "js-cookie";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "./firebase/firebaseDatabase";
 
 firebaseClient();
 const AuthContext = createContext({});
@@ -40,7 +42,8 @@ export async function upload(file, currentUser, setLoading) {
   setLoading(true);
   const snapshot = await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
-  updateProfile(currentUser, {photoURL});  
+  updateProfile(currentUser, {photoURL});
+  const photoUrl = await updateDoc(doc(db,"users",currentUser.displayName),{photoURL})
   setLoading(false);
   
   alert("Uploaded file!");

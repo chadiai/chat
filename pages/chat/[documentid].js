@@ -19,6 +19,22 @@ const Chat  = () => {
     const [messages] = useCollectionData(q);
     const endOfChatRef = useRef(null)
     
+    useEffect(()=>{
+        if (user == false) {
+            router.push("/")
+        }
+        else if (user != null){
+            while(!router.isReady) return;
+            const id  = router.query.documentid;
+            setId(id);
+            
+        }
+        
+        
+        
+        
+    },[router.isReady,user]);
+
     const scrollToBottom =  () => {
         if(endOfChatRef.current != null){
             endOfChatRef.current.scrollIntoView({
@@ -41,8 +57,8 @@ const Chat  = () => {
             let milliseconds = msg.timestamp.seconds*1000+(msg.timestamp.nanoseconds/1000000);
             let time = new Date(milliseconds)
             return (
-            <div key={time.getTime()} className={isSender ? "right" : "left"}>
-                <p  ref={endOfChatRef} className={isSender ? "message-right" : "message-left"} >
+            <div ref={endOfChatRef} key={time.getTime()} className={isSender ? "right" : "left"}>
+                <p   className={isSender ? "message-right" : "message-left"} >
                 {msg.text}</p>
                 <p className={isSender ? "timestamp-right" : "timestamp-left"}>{time.toUTCString()}</p>
             </div>
@@ -61,20 +77,6 @@ const Chat  = () => {
           })
         scrollToBottom();
     }
-
-    useEffect(()=>{
-        if (user == false) {
-            router.push("/")
-        }
-        else if (user != null){
-            while(!router.isReady) return;
-            const id  = router.query.documentid;
-            setId(id);
-            scrollToBottom();
-        }
-        
-        
-    },[router.isReady,user]);
 
     return (
     <>   

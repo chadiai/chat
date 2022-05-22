@@ -8,7 +8,7 @@ import {
   } from "firebase/auth";
 
 import { db } from "../firebase/firebaseDatabase";
-import { collection, addDoc } from "@firebase/firestore"
+import { collection, doc, setDoc } from "@firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
 
 const Signup = () => {
@@ -37,8 +37,9 @@ const Signup = () => {
               updateProfile(auth.currentUser, {
                 displayName: username
               }).then(() => {
-                addDoc(collection(db,"users"),{email: email,name: username})
+                setDoc(doc(db,"users",username),{email: email,photoURL:""})
               }).catch((error) => {
+                console.log(error)
                 toast.error("Could not create account with that username");
               });
             })

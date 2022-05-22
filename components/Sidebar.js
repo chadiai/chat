@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth , upload } from "../auth";
 import { db } from "../firebase/firebaseDatabase";
-import { collection, addDoc,updateDoc,doc } from "@firebase/firestore"
+import { collection, addDoc,updateDoc,doc, setDoc } from "@firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { ToastContainer,toast } from "react-toastify";
 
@@ -29,7 +29,7 @@ const SideBar = () => {
 
     const getEmail = (name) => {
         try {
-            let email = users?.filter(user => user.name == name )[0].email
+            let email = users?.filter(user => user.id == name )[0].email
             return email
         }
         catch(err) {
@@ -55,7 +55,7 @@ const SideBar = () => {
     const UserPreview = props => {
         return (
             <div id="friend-username">
-                <span onClick={() => push(props.id)} >{props.photoURL != null ? (<> <a><img className="profilepic" src={props.photoURL} ></img></a></>) : ( <i className="fa-solid fa-user"></i>)} {props.name}</span>  
+                <span onClick={() => push(props.id)} >{props.photoURL != null && props.photoURL != "" ? (<> <a><img className="profilepic" src={props.photoURL} ></img></a></>) : ( <i className="fa-solid fa-user"></i>)} {props.name}</span>  
             </div>
         )
     }
@@ -65,13 +65,23 @@ const SideBar = () => {
     
     }
 
+    const getProfilePicture = (name) => {
+        try {
+            let photoUrl = users?.filter(user => user.id == name )[0].photoURL
+            return photoUrl
+        }
+        catch(err) {
+            //
+        }
+    }
+
     const UserList = () => {
         return (
         <>
             {chats?.filter(chat => chat.emails.includes(user.email))
             .map(
                 chat => 
-                <UserPreview key={chat.users} name={getUser(chat.users,user)} url={chat.id} id={chat.id}/> )}
+                <UserPreview key={chat.users} name={getUser(chat.users,user)} url={chat.id} id={chat.id} photoURL={getProfilePicture(getUser(chat.users,user))}/> )}
         </>
         )
     }
@@ -83,6 +93,7 @@ const SideBar = () => {
         });
     };
 
+ 
     const openProfilePicture = () => {
         setProfilePicture(true);
     }
@@ -111,11 +122,11 @@ const SideBar = () => {
     
     return (
         <>
-        <div className="preview" >
+        <div className="preview">
             <ToastContainer />
             <div className="topbar">
                 <div>
-                {user?.photoURL != null ? (<> <a onClick={openProfilePicture}><img className="profilepic" src={user.photoURL} ></img></a></>) : ( <a onClick={openProfilePicture}><i className="fa-solid fa-user"></i></a>)}
+                {user?.photoURL != null && user?.photoURL != "" ? (<> <a onClick={openProfilePicture}><img className="profilepic" src={user.photoURL} ></img></a></>) : ( <a onClick={openProfilePicture}><i className="fa-solid fa-user"></i></a>)}
                      {user?.displayName}
                 </div>
                 <a className="signout" onClick={logout}><i className="fa-solid fa-arrow-right-from-bracket"></i></a>
