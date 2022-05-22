@@ -55,7 +55,7 @@ const SideBar = () => {
     const UserPreview = props => {
         return (
             <div id="friend-username">
-                <span onClick={() => push(props.id)} >{props.photoURL != null && props.photoURL != "" ? (<> <a><img className="profilepic" src={props.photoURL} ></img></a></>) : ( <i className="fa-solid fa-user"></i>)} {props.name}</span>  
+                <span onClick={() => push(props.id)} >{props.photoURL != null && props.photoURL != "" ? (<> <a><img className="profilepic" src={props.photoURL} width="30" height="30" ></img></a></>) : ( <i className="fa-solid fa-user"></i>)} {props.name}</span>  
             </div>
         )
     }
@@ -126,7 +126,7 @@ const SideBar = () => {
             <ToastContainer />
             <div className="topbar">
                 <div>
-                {user?.photoURL != null && user?.photoURL != "" ? (<> <a onClick={openProfilePicture}><img className="profilepic" src={user.photoURL} ></img></a></>) : ( <a onClick={openProfilePicture}><i className="fa-solid fa-user"></i></a>)}
+                {user?.photoURL != null && user?.photoURL != "" ? (<> <a onClick={openProfilePicture}><img className="profilepic" src={user.photoURL} width="30" height="30"></img></a></>) : ( <a onClick={openProfilePicture}><i className="fa-solid fa-user"></i></a>)}
                      {user?.displayName}
                 </div>
                 <a className="signout" onClick={logout}><i className="fa-solid fa-arrow-right-from-bracket"></i></a>
@@ -140,7 +140,7 @@ const SideBar = () => {
         </div>
         {profilePicture ? (<div className="photoupload">
             <input type="file" onChange={handleChange} />
-            <a onClick={closeProfilePicture} className="close-pf"><i class="fa-solid fa-xmark"></i></a>
+            <a onClick={closeProfilePicture} className="close-pf"><i className="fa-solid fa-xmark"></i></a>
             <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
         </div>) : (<></>)}
         

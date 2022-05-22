@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import SideBar from '../../components/Sidebar';
 
 
-function chat() {
+function Chat() {
     const { user } = useAuth();
     const router = useRouter();
 
@@ -24,4 +24,4 @@ function chat() {
     )
 }
 
-export default chat;
+export default Chat;
