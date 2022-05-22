@@ -1,8 +1,8 @@
 # POP-Project: Chat (Firebase & Nextjs)
+Deployed version [Link](https://chat-chadi.vercel.app/)
 
-Chadi Abdelghani-Idrissi
 
-# Demo video
+## Demo video
 https://youtu.be/bXBXTa8zoIA
 
 ## Installation :wrench:
@@ -12,3 +12,7 @@ https://youtu.be/bXBXTa8zoIA
 3. `npm install`
 4. `npm run dev`
 5. Enjoy :)
+
+
+
+Made by Chadi Abdelghani-Idrissi
